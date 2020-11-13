@@ -1,23 +1,16 @@
 package com.jurepinjuh.demo.Repository;
 
-import com.jurepinjuh.demo.Mappers.ArticleMapper;
 import com.jurepinjuh.demo.Mappers.UserMapper;
 import com.jurepinjuh.demo.Models.User;
-import com.jurepinjuh.demo.Services.IPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
-
-import java.security.NoSuchAlgorithmException;
 
 @Repository
 public class JdbcUserRepository implements IUserRepository  {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    IPasswordService passwordService;
 
     @Autowired
     UserMapper userMapper;

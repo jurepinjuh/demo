@@ -2,28 +2,29 @@ package com.jurepinjuh.demo.Controllers;
 
 
 import com.jurepinjuh.demo.Models.Article;
-import com.jurepinjuh.demo.Models.Purchase;
 import com.jurepinjuh.demo.Repository.IArticleRepository;
-import com.jurepinjuh.demo.Repository.JdbcArticleRepository;
-import com.jurepinjuh.demo.Repository.JpaPurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins="*")
 public class ArticleController {
 
     @Autowired
     IArticleRepository repository;
-    @Autowired
-    JpaPurchaseRepository jpaPurchaseRepository;
 
     @GetMapping("/article/getAll")
     List<Article> getAllArticles(){
         return repository.getAllArticles();
     }
 
+    @GetMapping("/article/getHomePage")
+    List<Article> getRand8(){
+        return repository.getHomePageArticles();
+    }
 
     @GetMapping("/article/get/{id}")
     Article getArticleByID(int id) throws Exception {
@@ -32,15 +33,17 @@ public class ArticleController {
             throw new Exception("No article with given id");
         }
         return article;
-
     }
 
-    @PostMapping("/article/add")
-    Article addArticle(Article article){
+    @PostMapping("/admin/addProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    Article addArticle(@RequestBody  Article article){
         return repository.addArticle(article);
     }
-    @PostMapping("/article/delete")
-    Boolean deleteArticle(int id){
+
+    @DeleteMapping("/admin/deleteProduct")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    Boolean deleteArticle(@RequestBody int id){
         return repository.deleteArticle(id);
     }
 }

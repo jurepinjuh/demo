@@ -4,18 +4,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.*;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.util.Date;
 
 @Component
 public class JwtUtils {
 
     private final String jwtSecret="BRJAKPO151297RTPJ1512";
-    private final int jwtExpiration=1000000000;
+    private final int jwtExpiration=10000000;
 
     public String generateJwtToken(Authentication authentication){
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
+                .claim("role",userPrincipal.getAuthorities().iterator().next())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpiration))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
@@ -18,6 +19,11 @@ public class JdbcArticleRepository implements IArticleRepository {
     @Override
     public List<Article> getAllArticles() {
         return jdbcTemplate.query("select * from ARTICLE",new ArticleMapper());
+    }
+
+    @Override
+    public List<Article> getHomePageArticles() {
+            return jdbcTemplate.query("select *  from [ARTICLE] ",new ArticleMapper());
     }
 
     @Override
@@ -34,11 +40,11 @@ public class JdbcArticleRepository implements IArticleRepository {
 
     @Override
     public Article addArticle(Article article) {
-        GeneratedKeyHolder holder=new GeneratedKeyHolder();
-        jdbcTemplate.update("insert into ARTICLE(NAME,DESCRIPTION,CATEGORYID,GENDERCATEGORY,BRANDID,IMAGEPATH,PRICE) VALUES(?,?,?,?,?,?,?)",
+
+        jdbcTemplate.update("insert into [ARTICLE]([NAME],DESCRIPTION,CATEGORYID,GENDERCATEGORY,BRANDID,IMAGEPATH,PRICE) VALUES(?,?,?,?,?,?,?)",
                 new Object[]{article.getName(),article.getDescription(),article.getCategoryId(),article.getGenderId(),
-                        article.getBrandId(),article.getImagePath(),article.getPrice()},holder);
-        return this.getArticleByID(holder.getKey().intValue());
+                        article.getBrandId(),article.getImagePath(),article.getPrice()});
+        return new Article();
     }
 
     @Override

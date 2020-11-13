@@ -5,7 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;
 
-public interface JpaPurchaseRepository extends CrudRepository<Purchase, Integer> {
+public interface JpaPurchaseRepository  {
 
 
 }
