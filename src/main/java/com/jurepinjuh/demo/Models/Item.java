@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import javax.persistence.*;
 
 @Table(name="ITEM")
+@Entity
 public class Item {
     @Column(name="IDITEM")
     @Id
@@ -19,6 +20,9 @@ public class Item {
     @Column(name="PURCHASEID")
     private int purchaseId;
 
+    public Item(){
+
+    }
     public Item(int id, int quantity, int articleId, double total, int purchaseId) {
         this.id = id;
         this.quantity = quantity;

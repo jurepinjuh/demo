@@ -18,7 +18,7 @@ import javax.sql.DataSource;
 @EnableAutoConfiguration
 @ComponentScan
 @PropertySource("classpath:database.properties")
-@EntityScan("com.jurepinjuh.demo.Models")
+@EntityScan
 public class BrjakpoApplication {
 
     @Autowired

@@ -3,7 +3,9 @@ package com.jurepinjuh.demo.Models;
 import javax.persistence.*;
 import java.util.Date;
 
+
 @Table(name="PURCHASE")
+@Entity
 public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,20 +36,8 @@ public class Purchase {
     @Column(name="REMARK")
     private String remark;
 
-    public Purchase() {
-        this.id = id;
-        this.billingName = billingName;
-        this.billingSurname = billingSurname;
-        this.billingPhone = billingPhone;
-        this.billingAddress = billingAddress;
-        this.userId = userId;
-        this.dateOfPurchase = dateOfPurchase;
-        this.price = price;
-        this.deliveryName = deliveryName;
-        this.deliverySurname = deliverySurname;
-        this.deliveryEmail = deliveryEmail;
-        this.deliveryAddress = deliveryAddress;
-        this.remark = remark;
+    public Purchase(){
+
     }
 
     public int getId() {

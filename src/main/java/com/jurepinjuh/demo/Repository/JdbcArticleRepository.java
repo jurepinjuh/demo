@@ -23,7 +23,7 @@ public class JdbcArticleRepository implements IArticleRepository {
 
     @Override
     public List<Article> getHomePageArticles() {
-            return jdbcTemplate.query("select *  from [ARTICLE] ",new ArticleMapper());
+            return jdbcTemplate.query("select TOP 8 *  from [ARTICLE] order by NEWID() ",new ArticleMapper());
     }
 
     @Override
@@ -44,7 +44,7 @@ public class JdbcArticleRepository implements IArticleRepository {
         jdbcTemplate.update("insert into [ARTICLE]([NAME],DESCRIPTION,CATEGORYID,GENDERCATEGORY,BRANDID,IMAGEPATH,PRICE) VALUES(?,?,?,?,?,?,?)",
                 new Object[]{article.getName(),article.getDescription(),article.getCategoryId(),article.getGenderId(),
                         article.getBrandId(),article.getImagePath(),article.getPrice()});
-        return new Article();
+        return article;
     }
 
     @Override

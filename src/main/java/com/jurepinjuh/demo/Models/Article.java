@@ -1,13 +1,27 @@
 package com.jurepinjuh.demo.Models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="ARTICLE")
 public class Article {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="IDARTICLE")
     private int id;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name="CATEGORYID")
     private int categoryId;
+    @Column(name="GENDERCATEGORY")
     private int genderId;
+    @Column(name="BRANDID")
     private int brandId;
+    @Column(name="IMAGEPATH")
     private String imagePath;
+    @Column(name="PRICE")
     private double price;
 
     public Article(int id, String name, String description, int categoryId, int genderId, int brandId, String imagePath, double price) {

@@ -47,7 +47,7 @@ public class JdbcUserRepository implements IUserRepository  {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new User();
+        return user;
     }
 
     @Override
