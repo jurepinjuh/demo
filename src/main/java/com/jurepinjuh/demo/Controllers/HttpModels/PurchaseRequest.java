@@ -3,6 +3,8 @@ package com.jurepinjuh.demo.Controllers.HttpModels;
 import com.jurepinjuh.demo.Models.Item;
 import com.jurepinjuh.demo.Models.Purchase;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 public class PurchaseRequest {
@@ -25,6 +27,8 @@ public class PurchaseRequest {
         this.itemList = itemList;
     }
 
+    @Valid
     private Purchase purchase;
+    @NotEmpty(message = "Items are required!")
     private List<Item> itemList;
 }

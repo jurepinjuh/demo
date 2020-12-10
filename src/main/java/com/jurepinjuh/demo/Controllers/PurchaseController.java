@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
+@Validated
 @RestController
 @CrossOrigin(origins="*")
 public class PurchaseController {
@@ -28,12 +31,12 @@ public class PurchaseController {
 
     @GetMapping("/purchase/getAll")
     @PreAuthorize("hasAuthority('ADMIN')")
-    Set<Purchase> getAllGenders(){
+    Set<Purchase> getAllPurchases(){
         return (Set<Purchase>) purchaseRepository.findAll();
     }
 
     @PostMapping("purchase/add")
-    ResponseEntity<?> addPurchase(@RequestBody PurchaseRequest request){
+    ResponseEntity<?> addPurchase(@Valid @RequestBody PurchaseRequest request){
      return purchaseService.addPurchase(request);
     }
 

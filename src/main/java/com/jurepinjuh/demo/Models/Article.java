@@ -1,7 +1,7 @@
 package com.jurepinjuh.demo.Models;
 
 import javax.persistence.*;
-
+import javax.validation.constraints.*;
 @Entity
 @Table(name="ARTICLE")
 public class Article {
@@ -9,18 +9,25 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="IDARTICLE")
     private int id;
+    @NotEmpty()
     @Column(name = "NAME")
     private String name;
+    @NotEmpty()
     @Column(name = "DESCRIPTION")
     private String description;
+    @NotEmpty()
     @Column(name="CATEGORYID")
     private int categoryId;
+    @NotEmpty()
     @Column(name="GENDERCATEGORY")
     private int genderId;
+    @NotEmpty()
     @Column(name="BRANDID")
     private int brandId;
+    @NotEmpty()
     @Column(name="IMAGEPATH")
     private String imagePath;
+    @NotEmpty()
     @Column(name="PRICE")
     private double price;
 

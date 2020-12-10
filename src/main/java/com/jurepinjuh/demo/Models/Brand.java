@@ -1,7 +1,11 @@
 package com.jurepinjuh.demo.Models;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Brand {
+    @NotEmpty()
     private int id;
+    @NotEmpty()
     private String brandName;
 
     public Brand() {

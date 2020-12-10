@@ -19,6 +19,14 @@ public class UserDetailsImpl implements UserDetails {
     private String email;
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;

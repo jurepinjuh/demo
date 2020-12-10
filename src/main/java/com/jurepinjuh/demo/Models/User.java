@@ -1,6 +1,9 @@
 package com.jurepinjuh.demo.Models;
 
+import javax.validation.constraints.NotEmpty;
+
 public class User {
+
     private int id;
     private String name;
     private String surname;

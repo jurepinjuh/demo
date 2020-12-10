@@ -4,14 +4,14 @@ package com.jurepinjuh.demo.Controllers;
 import com.jurepinjuh.demo.Models.Article;
 import com.jurepinjuh.demo.Repository.IArticleRepository;
 import com.jurepinjuh.demo.Repository.JpaArticleRepository;
+import com.jurepinjuh.demo.Services.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -34,51 +34,35 @@ public class ArticleController {
         return repository.getHomePageArticles();
     }
 
+    @Autowired
+    ArticleService articleService;
+
     @GetMapping("/article/get/{id}")
     Article getArticleByID(@PathVariable int id) throws Exception {
-        Article article=repository.getArticleByID(id);
-        if (article==null) {
-            throw new Exception("No article with given id");
-        }
-        return article;
+        return articleService.getArticleByID(id);
     }
 
     @PostMapping("/admin/addProduct")
     @PreAuthorize("hasAuthority('ADMIN')")
-    Article addArticle(@RequestBody  Article article){
+    Article addArticle(@Valid @RequestBody  Article article){
         return repository.addArticle(article);
     }
 
-    @DeleteMapping("/admin/deleteProduct")
+    @DeleteMapping("/admin/deleteProduct/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    Boolean deleteArticle(@RequestBody int id){
-        return repository.deleteArticle(id);
+    Long deleteArticle(@PathVariable int id){
+        return articleRepository.deleteArticleById(id);
     }
 
     @PutMapping("admin/editProduct")
     @PreAuthorize("hasAuthority('ADMIN')")
-    ResponseEntity<?> editArticle(@RequestBody  Article article){
-        Optional<Article> toEdit=articleRepository.findById(article.getId());
-        if (toEdit.isPresent()){
-            Article articleEdit=toEdit.get();
-            articleEdit.setImagePath(article.getImagePath());
-            articleEdit.setName(article.getName());
-            articleEdit.setBrandId(article.getBrandId());
-            articleEdit.setCategoryId(article.getCategoryId());
-            articleEdit.setDescription(article.getDescription());
-            articleEdit.setGenderId(article.getGenderId());
-            articleEdit.setPrice(article.getPrice());
-            articleRepository.save(articleEdit);
-           return new ResponseEntity<>(articleEdit, HttpStatus.OK);
-        }
-        else{
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    ResponseEntity<?> editArticle(@Valid @RequestBody  Article article){
+    return articleService.editArticle(article);
     }
 
     @GetMapping("/article/getFilter")
-    Set<Article> getArticleByFilter(@RequestBody List<Integer> brands, List<Integer> categories, List<Integer> genders) {
-        return articleRepository.findAllByBrandIdInAndCategoryIdInAndGenderIdIn(brands,categories,genders);
+    Set<Article> getArticleByFilter(@RequestParam String brands,@RequestParam String categories,@RequestParam String genders) {
+      return articleService.getArticleByFilter(brands,categories,genders);
     }
 
 }

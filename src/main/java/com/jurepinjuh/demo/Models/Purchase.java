@@ -1,6 +1,7 @@
 package com.jurepinjuh.demo.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Date;
 
 
@@ -11,27 +12,36 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDPURCHASE")
     private int id;
+    @NotEmpty()
     @Column(name="BILLINGNAME")
     private String billingName;
     @Column(name="BILLINGSURNAME")
     private String billingSurname;
+    @NotEmpty()
     @Column(name="BILLINGPHONE")
     private String billingPhone;
     @Column(name="BILLINGADRESS")
+    @NotEmpty()
     private String billingAddress;
+    @NotEmpty()
     @Column(name="USERID")
     private int userId;
+    @NotEmpty()
     @Column(name="DATEOFPURCHASE")
     private Date dateOfPurchase;
+    @NotEmpty()
     @Column(name="TOTALPRICE")
     private double price;
     @Column(name="DELIVERYNAME")
+    @NotEmpty()
     private String deliveryName;
     @Column(name="DELIVERYSURNAME")
     private String deliverySurname;
+    @NotEmpty()
     @Column(name="DELIVERYEMAIL")
     private String deliveryEmail;
     @Column(name="DELIVERYADRESS")
+    @NotEmpty()
     private String deliveryAddress;
     @Column(name="REMARK")
     private String remark;

@@ -5,10 +5,14 @@ import com.jurepinjuh.demo.Models.Brand;
 import com.jurepinjuh.demo.Models.Category;
 import com.jurepinjuh.demo.Models.Gender;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 
+@Transactional
 public interface JpaArticleRepository extends CrudRepository<Article,Integer> {
-    Set<Article> findAllByBrandIdInAndCategoryIdInAndGenderIdIn(List<Integer>brands, List<Integer>categories, List<Integer>genders);
+    Set<Article> findAllByBrandIdIsInAndCategoryIdIsInAndGenderIdIsIn(List<Integer>brands, List<Integer>categories, List<Integer>genders);
+    Set<Article> findAllByBrandIdIn(List<Integer> brands);
+    Long deleteArticleById(int id);
 }
