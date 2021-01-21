@@ -9,25 +9,25 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="IDARTICLE")
     private int id;
-    @NotEmpty()
+    @NotEmpty(message = "validation.article.name.notEmpty")
     @Column(name = "NAME")
     private String name;
-    @NotEmpty()
+    @NotEmpty(message = "validation.article.description.notEmpty")
     @Column(name = "DESCRIPTION")
     private String description;
-    @NotEmpty()
+    @NotNull(message = "validation.article.categoryid.notNull")
     @Column(name="CATEGORYID")
     private int categoryId;
-    @NotEmpty()
+    @NotNull(message = "validation.article.gendercategory.notNull")
     @Column(name="GENDERCATEGORY")
     private int genderId;
-    @NotEmpty()
+    @NotNull(message = "validation.article.brandid.notNull")
     @Column(name="BRANDID")
     private int brandId;
-    @NotEmpty()
+    @NotEmpty(message = "validation.article.imagepath.notEmpty")
     @Column(name="IMAGEPATH")
     private String imagePath;
-    @NotEmpty()
+    @NotNull(message = "validation.article.price.notNull")
     @Column(name="PRICE")
     private double price;
 

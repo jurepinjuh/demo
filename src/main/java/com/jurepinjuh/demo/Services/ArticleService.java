@@ -1,17 +1,15 @@
 package com.jurepinjuh.demo.Services;
 
-import com.jurepinjuh.demo.Models.Article;
-import com.jurepinjuh.demo.Models.Brand;
-import com.jurepinjuh.demo.Models.Category;
-import com.jurepinjuh.demo.Models.Gender;
-import com.jurepinjuh.demo.Repository.IBrandRepository;
-import com.jurepinjuh.demo.Repository.ICategoryRepository;
-import com.jurepinjuh.demo.Repository.IGenderRepository;
-import com.jurepinjuh.demo.Repository.JpaArticleRepository;
+import com.jurepinjuh.demo.Models.*;
+import com.jurepinjuh.demo.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,11 +33,25 @@ public class ArticleService {
     @Autowired
     IGenderRepository genderRepository;
 
+    @Autowired
+    JpaItemRepository itemRepository;
+    @Autowired
+    MessageSource messageSource;
+
    public  Article getArticleByID(@PathVariable int id) throws Exception {
        return articleRepository.findById(id).orElseThrow(
-               ()-> new ResponseStatusException(HttpStatus.CONFLICT,"User with given Id does not exist")
+               ()-> new ResponseStatusException(HttpStatus.NOT_FOUND,messageSource.getMessage("msg.article.notExist",null, LocaleContextHolder.getLocale()))
        );
    }
+
+   public Long deleteArticle(@PathVariable int id){
+        Set<Item> items=  itemRepository.getAllByArticleId(id);
+        for (Item item:
+             items) {
+            itemRepository.delete(item);
+        }
+        return articleRepository.deleteArticleById(id);
+    }
    public ResponseEntity<?> editArticle(@RequestBody Article article){
         Optional<Article> toEdit=articleRepository.findById(article.getId());
         if (toEdit.isPresent()){
@@ -55,7 +67,7 @@ public class ArticleService {
             return new ResponseEntity<>(articleEdit, HttpStatus.OK);
         }
         else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

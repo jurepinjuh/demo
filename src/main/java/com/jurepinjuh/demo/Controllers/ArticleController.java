@@ -45,13 +45,13 @@ public class ArticleController {
     @PostMapping("/admin/addProduct")
     @PreAuthorize("hasAuthority('ADMIN')")
     Article addArticle(@Valid @RequestBody  Article article){
-        return repository.addArticle(article);
+        return articleRepository.save(article);
     }
 
     @DeleteMapping("/admin/deleteProduct/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     Long deleteArticle(@PathVariable int id){
-        return articleRepository.deleteArticleById(id);
+        return articleService.deleteArticle(id);
     }
 
     @PutMapping("admin/editProduct")

@@ -3,9 +3,9 @@ package com.jurepinjuh.demo.Models;
 import javax.validation.constraints.NotEmpty;
 
 public class Gender {
-    @NotEmpty()
+
     private int id;
-    @NotEmpty()
+    @NotEmpty(message = "validation.gender.gendername.notEmpty")
     private String name;
 
     public Gender() {

@@ -1,11 +1,12 @@
 package com.jurepinjuh.demo.Models;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class Category {
-    @NotEmpty()
+
     private int id;
-    @NotEmpty()
+    @NotEmpty(message = "validation.category.categoryname.notEmpty")
     private String categoryName;
 
     public Category() {

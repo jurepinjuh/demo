@@ -1,14 +1,25 @@
 package com.jurepinjuh.demo.Controllers.HttpModels;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 public class RegisterRequest {
-    @NotEmpty(message = "Email is required!")
+    @NotEmpty(message = "validation.login.email.notEmpty")
+    @Email(message = "validation.login.email.Email")
     private String email;
-    @NotEmpty(message = "Username is required!")
+    @NotEmpty(message = "validation.login.username.notEmpty")
     private String username;
-    @NotEmpty(message = "Password is required!")
+    @NotEmpty(message = "validation.login.password.notEmpty")
     private String password;
+
+    public RegisterRequest(@NotEmpty(message = "validation.login.email.notEmpty") @Email(message = "validation.login.email.Email") String email, @NotEmpty(message = "validation.login.username.notEmpty") String username, @NotEmpty(message = "validation.login.password.notEmpty") String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
+    public RegisterRequest() {
+    }
 
     public String getEmail() {
         return email;

@@ -2,6 +2,7 @@ package com.jurepinjuh.demo.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -12,36 +13,36 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IDPURCHASE")
     private int id;
-    @NotEmpty()
+    @NotEmpty(message ="validation.purchase.billingName.notEmpty")
     @Column(name="BILLINGNAME")
     private String billingName;
     @Column(name="BILLINGSURNAME")
     private String billingSurname;
-    @NotEmpty()
+    @NotEmpty(message = "validation.purchase.billingPhone.notEmpty")
     @Column(name="BILLINGPHONE")
     private String billingPhone;
     @Column(name="BILLINGADRESS")
-    @NotEmpty()
+    @NotEmpty(message = "validation.purchase.billingAddress.notEmpty")
     private String billingAddress;
-    @NotEmpty()
+    @NotNull(message="validation.purchase.userid.notNull")
     @Column(name="USERID")
     private int userId;
-    @NotEmpty()
+    @NotNull(message = "validation.purchase.dateOfPurchase")
     @Column(name="DATEOFPURCHASE")
     private Date dateOfPurchase;
-    @NotEmpty()
+    @NotNull(message="validation.article.price.notNull")
     @Column(name="TOTALPRICE")
     private double price;
     @Column(name="DELIVERYNAME")
-    @NotEmpty()
+    @NotEmpty(message = "validation.purchase.deliveryName.notEmpty")
     private String deliveryName;
     @Column(name="DELIVERYSURNAME")
     private String deliverySurname;
-    @NotEmpty()
+    @NotEmpty(message = "validation.purchase.deliveryEmail.notEmpty")
     @Column(name="DELIVERYEMAIL")
     private String deliveryEmail;
     @Column(name="DELIVERYADRESS")
-    @NotEmpty()
+    @NotEmpty(message = "validation.purchase.deliveryAdress.notEmpty")
     private String deliveryAddress;
     @Column(name="REMARK")
     private String remark;

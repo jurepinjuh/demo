@@ -36,6 +36,7 @@ public class PurchaseController {
     }
 
     @PostMapping("purchase/add")
+    @PreAuthorize("hasAuthority('USER')")
     ResponseEntity<?> addPurchase(@Valid @RequestBody PurchaseRequest request){
      return purchaseService.addPurchase(request);
     }

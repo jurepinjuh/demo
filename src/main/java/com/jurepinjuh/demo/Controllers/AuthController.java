@@ -9,7 +9,10 @@ import com.jurepinjuh.demo.Models.Role;
 import com.jurepinjuh.demo.Models.User;
 import com.jurepinjuh.demo.Repository.IRoleRepository;
 import com.jurepinjuh.demo.Repository.IUserRepository;
+import com.jurepinjuh.demo.Repository.JpaUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,8 +37,6 @@ public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
 
-    @Autowired
-    IUserRepository userRepository;
 
     @Autowired
     PasswordEncoder encoder;
@@ -45,6 +46,13 @@ public class AuthController {
 
     @Autowired
     IRoleRepository repository;
+
+    @Autowired
+    JpaUserRepository userRepository;
+
+    @Autowired
+    MessageSource messageSource;
+
 
     @PostMapping("/auth/login")
     public String authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -61,16 +69,16 @@ public class AuthController {
     }
     @PostMapping("/auth/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
-        if (userRepository.existsByUserName(registerRequest.getUsername())) {
+        if (userRepository.existsByUsername(registerRequest.getUsername())) {
             return ResponseEntity
-                    .badRequest()
-                    .body("User already exists");
+                    .status(HttpStatus.CONFLICT)
+                    .body(messageSource.getMessage("msg.register.alreadyExist",null, LocaleContextHolder.getLocale()));
         }
 
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             return ResponseEntity
-                    .badRequest()
-                    .body("User already exists");
+                    .status(HttpStatus.CONFLICT)
+                    .body(messageSource.getMessage("msg.register.alreadyExist",null, LocaleContextHolder.getLocale()));
         }
 
         // Create new user's account
@@ -82,7 +90,7 @@ public class AuthController {
         user.setEmail(registerRequest.getEmail());
         user.setPassword(encoder.encode(registerRequest.getPassword()));
 
-        userRepository.AddUser(user);
+        userRepository.save(user);
 
         return new ResponseEntity(user, HttpStatus.OK);
     }

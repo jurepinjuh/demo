@@ -3,7 +3,9 @@ package com.jurepinjuh.demo.Models;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Table(name="ITEM")
@@ -13,17 +15,17 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty()
-    @Size(min = 1)
+    @NotNull(message ="validation.item.quantity.notNull")
+    @Min(value=1,message = "validation.item.quantity.Min")
     @Column(name="QUANTITY")
     private int quantity;
-    @NotEmpty()
+    @NotNull(message = "validation.item.articleid.notNull")
     @Column(name="ARTCLEID")
     private int articleId;
-    @NotEmpty()
+    @NotNull(message = "validation.item.quantity.notNull")
     @Column(name="TOTALITEM")
     private double total;
-    @NotEmpty()
+    @NotNull(message = "validation.item.purchaseid.notNull")
     @Column(name="PURCHASEID")
     private int purchaseId;
 

@@ -3,9 +3,9 @@ package com.jurepinjuh.demo.Controllers.HttpModels;
 import javax.validation.constraints.NotEmpty;
 
 public class LoginRequest {
-    @NotEmpty(message = "Username is required!")
+    @NotEmpty(message = "validation.login.username.notEmpty")
     private String username;
-    @NotEmpty(message = "Password is required!")
+    @NotEmpty(message = "validation.login.password.notEmpty")
     private String password;
 
     public String getUsername() {

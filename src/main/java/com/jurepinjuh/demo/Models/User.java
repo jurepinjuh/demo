@@ -1,17 +1,30 @@
 package com.jurepinjuh.demo.Models;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-
+@Table(name="[USER]")
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "IDUSER")
     private int id;
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "SURNAME")
     private String surname;
+    @Column(name = "CONTACTNUMBER")
     private String contactNumber;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "PASSWORD")
     private String password;
+    @ManyToOne()
+    @JoinColumn(name="ROLEID",referencedColumnName = "ID")
     private Role role;
-
+    @Column(name = "USERNAME")
+    private String username;
     public Role getRole() {
         return role;
     }
@@ -28,7 +41,7 @@ public class User {
         this.username = username;
     }
 
-    private String username;
+
 
     public User(int id, String name, String surname, String contactNumber, String email, String password,String username) {
         this.id = id;

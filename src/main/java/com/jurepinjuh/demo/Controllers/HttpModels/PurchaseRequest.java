@@ -29,6 +29,6 @@ public class PurchaseRequest {
 
     @Valid
     private Purchase purchase;
-    @NotEmpty(message = "Items are required!")
+    @NotEmpty(message = "validation.purchaseRequest.items.notEmpty")
     private List<Item> itemList;
 }
