@@ -57,6 +57,7 @@ public class ArticleRestControllerTest extends AbstractTransactionalJUnit4Spring
                 .andExpect(status().isBadRequest());
     }
 
+
     @Test
     void addArticleSucces() throws Exception {
         String TEST_NAME = "Nikes";
